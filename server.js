@@ -7,64 +7,55 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     // User = require('./models/user'),
-  session = require('express-session');
+    config = require('./config'),
+    session = require('express-session');
+
+
+// serve js and css files from public folder
+app.use(express.static(__dirname + '/public'));
+
+// configure bodyParser (for handling data)
+app.use(bodyParser.urlencoded({extended: true}));
 
 //connecting to mongoDB of heroku or localhost
-mongoose.connect(
-  process.env.MONGOLAB_URI ||
-  process.env.MONGOHQ_URL 
-  || 'mongodb://localhost/profiles');
+mongoose.connect(config.MONGO_URI);
 
-
-//setting up models
-// var User = require('./models/user');
-var Profile = require('./models/profile');
-
-
-//middleware
-// app.use(cors());
-app.use(bodyParser.urlencoded({ extended: true }));
-
-
-// setting view engine to render html files
-// app.set('view engine', 'ejs');
-app.set('views', __dirname + '/public');
-app.set('view engine', 'ejs');
-
-
-// set session options
+// set/ configure session
 app.use(session({
-  saveUninitialized: true,
-  resave: true,
-  secret: 'SuperSecretCookie',
-  cookie: { maxAge: 60000 }
+ saveUninitialized: true,
+ resave: true,
+ secret: config.SESSION_SECRET,
+ cookie: { maxAge: 60000 }
 }));
 
-//static Routes
-app.use(express.static(__dirname + '/public/views'));
+// require 'profile' model
+var Profile = require('./models/profile'),
+    Comment = require('./models/comment');
 
+// STATIC ROUTES
 
-//ROUTES
-
-// //signup routes
-// app.get('/signup', function (req, res){
-//   res.send('coming');
-// });
-
-//serving index.html
-app.get('/', function(req, res) {
-  res.sendFile= __dirname + "/public/views/index.html";
+// root (serves index.html)
+app.get('/', function (req, res) {
+  res.sendFile(__dirname + '/public/views/index.html');
 });
 
-//get all the bands from the db
+
+// API ROUTES       
+
+// get all profiles 
 app.get('/api/profiles', function (req, res) {
-  // find all foods in db
+  // find all profiles in db
   Profile.find(function (err, profile) {
-    res.json(profile);
+    if (err) {
+      console.log("error: ", err);
+      res.status(500).send(err);
+    } else {
+      res.json(profile);
+    }
   });
 });
 
-// POST NEW EVENT
+// creat new profle
 app.post('/api/profiles', function(req, res) {
  // create new instance of profile
 	var newProfile = new Profile({
@@ -109,6 +100,7 @@ app.put('/api/profiles/:id', function (req, res) {
   Profile.findOne({_id: targetId}, function (err, foundProfile){
     console.log(foundProfile); 
     if(err){
+      console.log("error: ", err);
       res.status(500).send(err);
     } else {
       foundProfile.type = req.body.type;
@@ -121,6 +113,7 @@ app.put('/api/profiles/:id', function (req, res) {
       //save changes
       foundProfile.save(function (err, savedProfile){
         if (err){
+          console.log("error: ", err);
           res.status(500).send(err);
         } else {
           // send back edited object
@@ -133,12 +126,11 @@ app.put('/api/profiles/:id', function (req, res) {
 
 // DELETE POST
 app.delete('/api/profiles/:id', function(req, res) {
-
   var targetId = req.params.id;
-
- // remove item from the db that matches the id
+  // remove item from the db that matches the id
    Profile.findOneAndRemove({_id: targetId}, function (err, deletedProfile) {
     if (err){
+      console.log("error: ", err);
       res.status(500).send(err);
     } else {
       // send back deleted post
@@ -147,6 +139,23 @@ app.delete('/api/profiles/:id', function(req, res) {
   });
 });
 
-//connecting it to the server or port 3000
-app.listen(process.env.PORT || 3000);
+// create new comment
+app.post('/api/phrases/:phraseId/comments', function (req, res) {
+  // create new note with form data (`req.body`)
+  var newComment = new Comment({
+    text: req.body.text
+  });
+
+  // set the value of the id
+  var targetId = req.params.profileId;
+
+  // find phrase in db by id
+  Profile.findOne({_id: targetId}, function (err, foundProfile) {
+    foundProfile.comments.push(newComment);
+    foundProfile.save();
+    res.json(newProfile);
+  });
+});
+
+app.listen(config.PORT);
 console.log('server started on locahost:3000');

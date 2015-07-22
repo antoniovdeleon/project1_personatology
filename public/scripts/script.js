@@ -1,28 +1,58 @@
-$(function() {
-  console.log($);
-  console.log(_);
+// $(function() {
 
-  // `mainController` holds shared site functionality
-  var mainController = {
+//   console.log('hello');
 
-    // compile underscore template
-    navTemplate: _.template($('#nav-template').html()),
+//   //get all profiles
+//   $profile = _.template($('#profile-template').html() );
+//   var baseUrl = "http://localhost:3000";
 
-    // get current (logged-in) user
-    showCurrentUser: function() {
-      // AJAX call to server to GET /api/users/current
-      $.get('/api/users/current', function(user) {
-        console.log(user);
+//     $.get(baseUrl + '/api/profiles', function(data) {
+//       var profiles = data;
 
-        // pass user through underscore template
-        $navHtml = $(mainController.navTemplate({currentUser: user}));
+//       _.each(profiles, function(profile) { 
+//         console.log(profile);
+//         $('#profiles').append($profile(profile));
+//       });
+//     });
+//   });
 
-        // append user HTML to page
-        $('#nav-links').append($navHtml);
-      });
-    }
-  };
+ 
+  //get all archived blog posts
+ // var all = function (){
+ //   $.get('/api/posts', function (data) {
+ //     var allVenues = data;
+ //     console.log(allVenues);
+ //    //iterate through all blog posts
+ //     _.each(allVenues, function(data) {
 
-  mainController.showCurrentUser();
+ //       //pass each blog post through template to append to view
+ //       var $venueHtml = $(template(data));
+ //       console.log($venueHtml);
+ //       console.log($('#profile-template'))
+ //       $('#profile-template').append($venueHtml);
+ //     });
+ //   }); 
+ // };
 
-});
+ // all()
+
+
+
+// TEST
+ // $line = _.template( $("#lineTemplate").html() )
+
+ //  $.get(baseUrl + '/api/lines', function(data) {
+ //    var lines = data  
+
+ //    _.each(lines, function(line) {
+ //      console.log(line)
+ //      $('#lines').append($line(line))
+ //    })
+ //  })
+
+// TEST END
+
+
+
+
+// })

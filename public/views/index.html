@@ -8,7 +8,7 @@
   <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
 
   <!-- custom styles -->
-  <link type="text/css" rel="stylesheet" href="../styles/style.css">
+  <link type="text/css" rel="stylesheet" href="styles/style.css">
 
   <title>Personatology</title>
 </head>
@@ -64,22 +64,10 @@
   <div class="form-group">
     <input type="submit" value="Save" class="btn btn-primary btn-block">
   </div>
+  <div class="well" id="profiles"> </div>
   <!-- end form -->
 
-  <!--underscore template -->
-   <script type="text/template" id="profile-template">
-     <div class="profile_list"
-   <p>
-     <%= type %><br> 
-     <%= name %><br>  
-     <%= age %><br>
-     <%= hobbies %><br>
-     <%= careerAspire %><br>    
-     <%= jobs %><br>
-     <%= weakness %><br>
-   </p>
-     </div>
-   </script>
+
 
 
 
@@ -94,10 +82,23 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
   <!-- custom script -->
-  <script type="text/javascript" src="../scripts/script.js"></script>
+  <script type="text/javascript" src="scripts/script.js"></script>
 
-
-
-
+  <!--underscore template -->
+  <script type="text/template" id="profile-template">
+    <div class="profile_list"
+      <p>
+        <%= type %><br> 
+        <%= name %><br>  
+        <%= age %><br>
+        <%= hobbies %><br>
+        <%= careerAspire %><br>    
+        <%= jobs %><br>
+        <%= weakness %><br>
+        <%= weakness %><br>
+      </p>
+    </div>
+  </script>
+  
  </body>
  </html>
