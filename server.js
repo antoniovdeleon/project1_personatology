@@ -7,7 +7,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     // User = require('./models/user'),
-    config = require('./config'),
+    config = require('config'),
     session = require('express-session');
 
 
