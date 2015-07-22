@@ -11,5 +11,13 @@
     "start": "node server.js"
   },
   "author": "antonio de leon",
-  "license": "ISC"
+  "license": "ISC",
+  "dependencies": {
+    "app": "^0.1.0",
+    "body-parser": "^1.13.2",
+    "express": "^4.13.1",
+    "express-session": "^1.11.3",
+    "mongoose": "^4.0.8",
+    "underscore": "^1.8.3"
+  }
 }

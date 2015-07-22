@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  
+  <!-- bootstrap css -->
+  <link type="text/css" rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.5/css/bootstrap.min.css">
+
+  <!-- custom styles -->
+  <link type="text/css" rel="stylesheet" href="../styles/style.css">
+
+  <title>Personatology</title>
+</head>
+<body>
+  <!-- navbar -->
+  <nav class="navbar navbar-default">
+    <div class="container-fluid">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="#">Personatology Logo</a>
+      </div>
+      <div>
+        <ul class="nav navbar-nav">
+          <li class="active"><a href="#">Home</a></li>
+          <li><a href="taketest.html">Take The Test!</a></li>
+          <li><a href="personalities.html">Personality Profiles</a></li> 
+        </ul>
+        <ul class="nav navbar-nav navbar-right">
+          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
+          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+        </ul>
+      </div>
+    </div>
+  </nav>
+  <!-- end navbar -->
+
+  <!-- jumbotron -->
+  <div class="jumbotron">
+    <div class="container">
+      <h1>Personatology</h1>
+      <p>Meet others just like you!</p>
+    </div>
+  </div>
+  <!-- end jumbotron -->
+
+  <!-- form -->
+  <div class= "container">
+  <div class="form-group">
+  <!--     <input type="text" class="form-control" placeholder="photo-url" id="form"> photo -->
+    <select class="form-control">
+      <option>ENTP</option>
+      <option>INTJ</option>
+      <option>ISFJ</option>
+      <option>ENTJ</option>
+      <option>ISFP</option>
+    </select>
+    <input type="text" class="form-control" placeholder="Name" id="form">
+    <input type="text" class="form-control" placeholder="Age" id="form"> 
+    <input type="text" class="form-control" placeholder="Hobbies" id="form">
+    <input type="text" class="form-control" placeholder="What are your career aspirations?" id="form">
+    <input type="text" class="form-control" placeholder="What are jobs you've had in the past that you've enjoyed?" id="form">
+    <input type="text" class="form-control" placeholder="What is your weakness?" id="form">
+  </div>
+  <div class="form-group">
+    <input type="submit" value="Save" class="btn btn-primary btn-block">
+  </div>
+  <!-- end form -->
+
+  <!--underscore template -->
+   <script type="text/template" id="profile-template">
+     <div class="profile_list"
+   <p>
+     <%= type %><br> 
+     <%= name %><br>  
+     <%= age %><br>
+     <%= hobbies %><br>
+     <%= careerAspire %><br>    
+     <%= jobs %><br>
+     <%= weakness %><br>
+   </p>
+     </div>
+   </script>
+
+
+
+
+  <!-- jquery -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
+
+  <!-- bootstrap js -->
+  <script type="text/javascript" src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.4/js/bootstrap.min.js"></script>
+
+  <!-- underscore -->
+  <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
+
+  <!-- custom script -->
+  <script type="text/javascript" src="../scripts/script.js"></script>
+
+
+
+
+ </body>
+ </html>
