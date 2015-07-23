@@ -1,58 +1,42 @@
-// $(function() {
+$(function() {
+	console.log("i'm working");
 
-//   console.log('hello');
+  // compile profile template
+  $template = _.template($('#profile-template').html());
 
-//   //get all profiles
-//   $profile = _.template($('#profile-template').html() );
-//   var baseUrl = "http://localhost:3000";
-
-//     $.get(baseUrl + '/api/profiles', function(data) {
-//       var profiles = data;
-
-//       _.each(profiles, function(profile) { 
-//         console.log(profile);
-//         $('#profiles').append($profile(profile));
-//       });
-//     });
-//   });
-
+  //get all archived profile posts
+	var all = function () {
+ 		$.get('/api/profiles', function (data) {
+      // console.log("getting all profiles")
+      var allProfiles = data;
+      // console.log(allProfiles);
+      // iterate through all profiles
+      _.each(allProfiles, function (allProfiles) {
+      	$('#current-profiles').append($template(allProfiles))
+      });
+    });
+  }
  
-  //get all archived blog posts
- // var all = function (){
- //   $.get('/api/posts', function (data) {
- //     var allVenues = data;
- //     console.log(allVenues);
- //    //iterate through all blog posts
- //     _.each(allVenues, function(data) {
-
- //       //pass each blog post through template to append to view
- //       var $venueHtml = $(template(data));
- //       console.log($venueHtml);
- //       console.log($('#profile-template'))
- //       $('#profile-template').append($venueHtml);
- //     });
- //   }); 
- // };
-
- // all()
+ 	all();
 
 
-
-// TEST
- // $line = _.template( $("#lineTemplate").html() )
-
- //  $.get(baseUrl + '/api/lines', function(data) {
- //    var lines = data  
-
- //    _.each(lines, function(line) {
- //      console.log(line)
- //      $('#lines').append($line(line))
- //    })
- //  })
-
-// TEST END
-
-
-
-
-// })
+ 	//submit form 
+	$('#profile-form').on('submit', function(event){
+	  event.preventDefault();
+	  console.log("hello"); 
+	  var Profile = {
+	  	type: $('#entry-type').val(),
+	  	name: $('#entry-name').val(),
+	  	age: $('#entry-age').val(),
+	  	hobbies: $('#entry-hobbies').val(),
+	  	careerAspire: $('#entry-career').val(),
+	  	jobs: $('#entry-jobs').val(),
+	  	weakness: $('#entry-weakness').val()
+	  }
+	  $.post('/api/profiles', Profile, function(data) {
+	  	console.log(data)
+	  		$('#current-profiles').prepend($template(data))
+	  })
+	})
+	
+})

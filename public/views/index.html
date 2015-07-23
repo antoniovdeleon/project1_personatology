@@ -45,27 +45,37 @@
 
   <!-- form -->
   <div class= "container">
-  <div class="form-group">
-  <!--     <input type="text" class="form-control" placeholder="photo-url" id="form"> photo -->
-    <select class="form-control">
-      <option>ENTP</option>
-      <option>INTJ</option>
-      <option>ISFJ</option>
-      <option>ENTJ</option>
-      <option>ISFP</option>
-    </select>
-    <input type="text" class="form-control" placeholder="Name" id="form">
-    <input type="text" class="form-control" placeholder="Age" id="form"> 
-    <input type="text" class="form-control" placeholder="Hobbies" id="form">
-    <input type="text" class="form-control" placeholder="What are your career aspirations?" id="form">
-    <input type="text" class="form-control" placeholder="What are jobs you've had in the past that you've enjoyed?" id="form">
-    <input type="text" class="form-control" placeholder="What is your weakness?" id="form">
+    <div class="row">
+      <div class="col-md-8">
+        <h4>Create A Profile!</h4>
+        <form id="profile-form">
+          <div class="form-group">
+            <select class="form-control" id="entry-type" name="profile [type]">
+              <option>ENTP</option>
+              <option>INTJ</option>
+              <option>ISFJ</option>
+              <option>ENTJ</option>
+              <option>ISFP</option>
+            </select>
+            <input type="text" name="profile [name]" class="form-control" placeholder="Name" id="entry-name">
+            <input type="text" name="profile [age]" class="form-control" placeholder="Age" id="entry-age"> 
+            <input type="text" name="profile [hobbies]" class="form-control" placeholder="Hobbies" id="entry-hobbies">
+            <input type="text" name="profile [careerAspire]" class="form-control" placeholder="What are your career aspirations?" id="entry-career">
+            <input type="text" name="profile [jobs]" class="form-control" placeholder="What are jobs you've had in the past that you've enjoyed?" id="entry-jobs">
+            <input type="text" name="profile [weakness]" class="form-control" placeholder="What is your weakness?" id="entry-weakness">
+          </div>
+          <div class="form-group">
+            <input type="submit" class="btn btn-primary btn-block" value="Add">
+          </div>
+        </form>
+      </div>
+    </div>
   </div>
-  <div class="form-group">
-    <input type="submit" value="Save" class="btn btn-primary btn-block">
-  </div>
-  <div class="well" id="profiles"> </div>
   <!-- end form -->
+
+  <!-- Profile template -->
+  <div class="container" id="current-profiles"> </div>
+
 
 
 
@@ -86,19 +96,21 @@
 
   <!--underscore template -->
   <script type="text/template" id="profile-template">
-    <div class="profile_list"
-      <p>
-        <%= type %><br> 
-        <%= name %><br>  
-        <%= age %><br>
-        <%= hobbies %><br>
-        <%= careerAspire %><br>    
-        <%= jobs %><br>
-        <%= weakness %><br>
-        <%= weakness %><br>
-      </p>
+    <div class="well">
+      <div class="profile_list">
+        <p>
+
+          <%= type %><br> 
+          <%= name %><br>  
+          <%= age %><br>
+          <%= hobbies %><br>
+          <%= careerAspire %><br>    
+          <%= jobs %><br>
+          <%= weakness %><br>
+        </p>
+      </div>
     </div>
   </script>
-  
+
  </body>
  </html>

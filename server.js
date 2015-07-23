@@ -7,7 +7,7 @@ var express = require('express'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
     // User = require('./models/user'),
-    config = require('config'),
+    config = require('./config'),
     session = require('express-session');
 
 
@@ -50,7 +50,7 @@ app.get('/api/profiles', function (req, res) {
       console.log("error: ", err);
       res.status(500).send(err);
     } else {
-      res.json(profile);
+      res.send(profile);
     }
   });
 });

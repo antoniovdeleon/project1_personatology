@@ -5,13 +5,13 @@ Schema = mongoose.Schema;
 Comment = require('./comment');
 
 var profileSchema = new Schema({
-	type: {type:String},
-	name: { type:String},
-	age: {type:String},
-	hobbies: {type:String},	
-	careerAspire: {type:String},
-	jobs: {type:String},
-	weakness: {type:String},
+	type: {type:String, default: "", required: true},
+	name: { type:String, default: "", required: true},
+	age: {type:String, default: "", required: true},
+	hobbies: {type:String, default: "", required: true},	
+	careerAspire: {type:String, default: "", required: true},
+	jobs: {type:String, default: "", required: true},
+	weakness: {type:String, default: "", required: true},
 	comments: [Comment.schema]
 });
 
