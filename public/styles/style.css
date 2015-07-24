@@ -1,3 +1,9 @@
-/*body {
-	background-color: grey;
-} */
+body {
+	background-color: #66CCCC ;
+}
+
+.jumbotron {
+	padding-top: 70px;
+	padding-bottom: 70px;
+	background-color: #33CC99;
+}
