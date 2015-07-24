@@ -65,7 +65,7 @@
             <input type="text" name="profile [hobbies]" class="form-control" placeholder="Hobbies" id="entry-hobbies">
             <input type="text" name="profile [careerAspire]" class="form-control" placeholder="What's your job or career aspirations?" id="entry-career">
             <input type="text" name="profile [jobs]" class="form-control" placeholder="What are jobs you've had in the past that you've enjoyed?" id="entry-jobs">
-            <input type="text" name="profile [weakness]" class="form-control" placeholder="What is your weakness?" id="entry-weakness">
+            <input type="text" name="profile [weakness]" class="form-control" placeholder="Enter a photo" id="entry-weakness">
           </div>
           <div class="form-group">
             <input type="submit" class="btn btn-primary btn-block" value="Add">
@@ -89,7 +89,7 @@
             <%= hobbies %><br>
             <%= careerAspire %><br>    
             <%= jobs %><br>
-            <%= weakness %><br>
+            <img src="<%= weakness %>" width="200px" class="img-responsive" /><br>
           </p>
         </div>
       </div>
