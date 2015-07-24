@@ -1,3 +1,5 @@
+//original 
+
 $(function() {
 	console.log("i'm working");
 
@@ -20,10 +22,10 @@ $(function() {
  	all();
 
 
- 	//submit form 
+
 	$('#profile-form').on('submit', function(event){
 	  event.preventDefault();
-	  console.log("hello"); 
+	  // console.log("hello"); 
 	  var Profile = {
 	  	type: $('#entry-type').val(),
 	  	name: $('#entry-name').val(),
@@ -33,10 +35,15 @@ $(function() {
 	  	jobs: $('#entry-jobs').val(),
 	  	weakness: $('#entry-weakness').val()
 	  }
-	  $.post('/api/profiles', Profile, function(data) {
+	  $.post('/api/profiles', Profile, function (data) {
 	  	console.log(data)
 	  		$('#current-profiles').prepend($template(data))
 	  })
 	})
+
+
+
+
+
 	
 })

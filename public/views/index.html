@@ -14,31 +14,24 @@
 </head>
 <body>
   <!-- navbar -->
-  <nav class="navbar navbar-default">
-    <div class="container-fluid">
-      <div class="navbar-header">
-        <a class="navbar-brand" href="#">Personatology Logo</a>
-      </div>
-      <div>
+  <div class="container">
+    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
         <ul class="nav navbar-nav">
-          <li class="active"><a href="#">Home</a></li>
-          <li><a href="taketest.html">Take The Test!</a></li>
-          <li><a href="personalities.html">Personality Profiles</a></li> 
         </ul>
         <ul class="nav navbar-nav navbar-right">
-          <li><a href="#"><span class="glyphicon glyphicon-user"></span> Sign Up</a></li>
-          <li><a href="#"><span class="glyphicon glyphicon-log-in"></span> Login</a></li>
+          <li><a href="/signup">Sign up</a></li>
+          <li><a href="/login">Log in</a></li>
+          <li><a href="/logout">Log out</a></li>
         </ul>
-      </div>
     </div>
-  </nav>
+  </div>
   <!-- end navbar -->
 
   <!-- jumbotron -->
   <div class="jumbotron">
     <div class="container">
       <h1>Personatology</h1>
-      <p>Meet others just like you!</p>
+      <p>Meet other people like you!</p>
     </div>
   </div>
   <!-- end jumbotron -->
@@ -46,21 +39,32 @@
   <!-- form -->
   <div class= "container">
     <div class="row">
-      <div class="col-md-8">
+      <div class="col-md-5">
         <h4>Create A Profile!</h4>
         <form id="profile-form">
           <div class="form-group">
             <select class="form-control" id="entry-type" name="profile [type]">
-              <option>ENTP</option>
-              <option>INTJ</option>
-              <option>ISFJ</option>
-              <option>ENTJ</option>
+              <option>ISTJ</option>
+              <option>ISPT</option>
+              <option>ISJF</option>
               <option>ISFP</option>
+              <option>INFJ</option>
+              <option>INFP</option>              
+              <option>INTJ</option>              
+              <option>INTP</option>            
+              <option>ESTP</option>            
+              <option>ESTJ</option>            
+              <option>ESFP</option>              
+              <option>ESFJ</option> 
+              <option>ENFP</option>              
+              <option>ENFJ</option>                           
+              <option>ENTP</option>              
+              <option>ENTJ</option>                          
             </select>
             <input type="text" name="profile [name]" class="form-control" placeholder="Name" id="entry-name">
             <input type="text" name="profile [age]" class="form-control" placeholder="Age" id="entry-age"> 
             <input type="text" name="profile [hobbies]" class="form-control" placeholder="Hobbies" id="entry-hobbies">
-            <input type="text" name="profile [careerAspire]" class="form-control" placeholder="What are your career aspirations?" id="entry-career">
+            <input type="text" name="profile [careerAspire]" class="form-control" placeholder="What's your job or career aspirations?" id="entry-career">
             <input type="text" name="profile [jobs]" class="form-control" placeholder="What are jobs you've had in the past that you've enjoyed?" id="entry-jobs">
             <input type="text" name="profile [weakness]" class="form-control" placeholder="What is your weakness?" id="entry-weakness">
           </div>
@@ -74,13 +78,24 @@
   <!-- end form -->
 
   <!-- Profile template -->
-  <div class="container" id="current-profiles"> </div>
-
-
-
-
-
-
+  <div class="container" id="current-profiles">
+    <!--underscore template -->
+    <script type="text/template" id="profile-template">
+      <div class="well">
+        <div class="profile_list">
+          <p>
+            <%= type %><br> 
+            <%= name %><br>  
+            <%= age %><br>
+            <%= hobbies %><br>
+            <%= careerAspire %><br>    
+            <%= jobs %><br>
+            <%= weakness %><br>
+          </p>
+        </div>
+      </div>
+    </script>
+  </div>
 
   <!-- jquery -->
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.js"></script>
@@ -92,25 +107,8 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js"></script>
 
   <!-- custom script -->
-  <script type="text/javascript" src="scripts/script.js"></script>
+  <script type="text/javascript" src="scripts/personalityProfile.js"></script>
 
-  <!--underscore template -->
-  <script type="text/template" id="profile-template">
-    <div class="well">
-      <div class="profile_list">
-        <p>
-
-          <%= type %><br> 
-          <%= name %><br>  
-          <%= age %><br>
-          <%= hobbies %><br>
-          <%= careerAspire %><br>    
-          <%= jobs %><br>
-          <%= weakness %><br>
-        </p>
-      </div>
-    </div>
-  </script>
 
  </body>
  </html>

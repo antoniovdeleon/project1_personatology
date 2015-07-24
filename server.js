@@ -1,48 +1,149 @@
 //requiring modules
 var express = require('express'),
     app = express(),
-    _ = require('underscore'),
+    // _ = require('underscore'),
     // cors = require('cors'),
     // ejs = require('ejs'),
     bodyParser = require('body-parser'),
     mongoose = require('mongoose'),
-    // User = require('./models/user'),
-    config = require('./config'),
-    session = require('express-session');
-
-
-// serve js and css files from public folder
-app.use(express.static(__dirname + '/public'));
-
-// configure bodyParser (for handling data)
-app.use(bodyParser.urlencoded({extended: true}));
+    User = require('./models/user'),
+    // config = require('./config'),
+    session = require('express-session'),
+    Profile = require('./models/profile'),
+    Comment = require('./models/comment');
 
 //connecting to mongoDB of heroku or localhost
-mongoose.connect(config.MONGO_URI);
+mongoose.connect(process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || require('./config').MONGO_URI);
 
-// set/ configure session
+// middleware
+app.use(express.static(__dirname + '/public'));
+app.use(bodyParser.urlencoded({extended: true}));
+
+
+
+// setting view engine to render html files
+
+app.set('views', __dirname + '/public');
+//app.set('view engine', 'ejs');
+
+// set session option
 app.use(session({
- saveUninitialized: true,
- resave: true,
- secret: config.SESSION_SECRET,
- cookie: { maxAge: 60000 }
+  saveUninitialized: true,
+  resave: true,
+  secret: 'SuperSecretCookie',
+  cookie: { maxAge: 60000 }
 }));
 
-// require 'profile' model
-var Profile = require('./models/profile'),
-    Comment = require('./models/comment');
+app.use('/', function (req, res, next) {
+  // saves userId in session for logged-in user
+  req.login = function (user) {
+    req.session.userId = user.id;
+  };
+
+  // finds user currently logged in based on `session.userId`
+  req.currentUser = function (callback) {
+    User.findOne({_id: req.session.userId}, function (err, user) {
+      req.user = user;
+      callback(null, user);
+    });
+  };
+
+  // destroy `session.userId` to log out user
+  req.logout = function () {
+    req.session.userId = null;
+    req.user = null;
+  };
+
+  next();
+});
+
+// AUTHORIZATION
+
+// signup route (renders signup view)
+app.get('/signup', function (req, res) {
+ res.sendFile(__dirname + '/public/views/signup.html');
+});
+
+// user submits the signup form
+app.post('/users', function (req, res) {
+
+ // grab user data from params (req.body)
+ //var newUser = req.body.user;
+var email = req.body.email;
+var password = req.body.password;
+ // create new user with secure password
+ User.createSecure( email, password, function (err, user) {
+   //req.login(user);
+   res.redirect('/login');
+ });
+});
+
+// AUTHENTICATION
+
+// user submits the login form
+app.post('/login', function (req, res) {
+  //console.log('post');
+  // grab user data from params (req.body)
+  var userData = req.body.user;
+  console.log(userData);
+
+  // call authenticate function to check if password user entered is correct
+  User.authenticate(userData.email, userData.password, function (err, user) {
+  // saves user id to session
+  req.login(user);
+  res.redirect('/')
+
+  });
+});
+
+// user profile page
+app.get('/index', function (req, res) {
+ // finds user currently logged in
+  req.currentUser(function (err, user) {
+    res.send('Welcome ' + user.email);
+  });
+});
+
+app.get('/logout', function(req, res) {
+ req.logout();
+ res.redirect('/profile');
+});
+
+// login route (renders login view)
+app.get('/login', function (req, res) {
+  res.sendFile(__dirname + '/public/views/login.html');
+});
+
+
+
 
 // STATIC ROUTES
 
-// root (serves index.html)
+// homepage
 app.get('/', function (req, res) {
   res.sendFile(__dirname + '/public/views/index.html');
 });
 
+// home page
 
-// API ROUTES       
+// profile page
+app.get('/profile', function (req, res) {
+  // check for current (logged-in) user
+  req.currentUser(function (err, user) {
+    // show profile if logged-in user
+    if (user) {
+      res.sendFile(__dirname + '/public/views/profile.html');
+    // redirect if no user logged in
+    } else {
+      res.redirect('/');
+    }
+  });
+});
 
-// get all profiles 
+
+// API ROUTES
+
+// get all user personality profiles 
 app.get('/api/profiles', function (req, res) {
   // find all profiles in db
   Profile.find(function (err, profile) {
@@ -55,7 +156,7 @@ app.get('/api/profiles', function (req, res) {
   });
 });
 
-// creat new profle
+// create new profle
 app.post('/api/profiles', function(req, res) {
  // create new instance of profile
 	var newProfile = new Profile({
@@ -157,5 +258,7 @@ app.post('/api/phrases/:phraseId/comments', function (req, res) {
   });
 });
 
-app.listen(config.PORT);
-console.log('server started on locahost:3000');
+//connecting it to the server or port 3000
+app.listen(process.env.PORT || require('./config').PORT, function(){
+ console.log('server started on locahost:3000');
+});
