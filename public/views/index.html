@@ -34,11 +34,10 @@
     </div>
   </div>
   <!-- end jumbotron -->
-
   <!-- form -->
   <div class= "container">
     <div class="row">
-      <div class="col-md-5">
+      <div class="col-md-8 col-md-offset-2">
         <h4>Create A Profile!</h4>
         <form id="profile-form">
           <div class="form-group">
@@ -80,17 +79,23 @@
   <div class="container" id="current-profiles">
     <!--underscore template -->
     <script type="text/template" id="profile-template">
-      <div class="well">
-        <div class="profile_list">
-          <p>
-            <%= type %><br> 
-            <%= name %><br>  
-            <%= age %><br>
-            <%= hobbies %><br>
-            <%= careerAspire %><br>    
-            <%= jobs %><br>
-            <img src="<%= weakness %>" width="200px" class="img-responsive" /><br>
-          </p>
+      <div class="container">
+        <div class="row">
+          <div class="col-md-8 col-md-offset-2">
+            <div class="well">
+              <div class="profile_list">
+                <p>
+                  <%= type %><br> 
+                  <%= name %><br>  
+                  <%= age %><br>
+                  <%= hobbies %><br>
+                  <%= careerAspire %><br>    
+                  <%= jobs %><br>
+                  <img src="<%= weakness %>" width="200px" class="img-responsive" /><br>
+                </p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </script>
