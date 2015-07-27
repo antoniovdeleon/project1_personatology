@@ -13,7 +13,10 @@ var express = require('express'),
     Comment = require('./models/comment');
 
 //connecting to mongoDB of heroku or localhost
-mongoose.connect(process.env.MONGOLAB_URI || process.env.MONGOHQ_URL || require('./config').MONGO_URI);
+mongoose.connect(process.env.MONGOLAB_URI || 
+  process.env.MONGOHQ_URL || 
+  'mongodb://localhost/profiles'
+);
 
 // middleware
 app.use(express.static(__dirname + '/public'));
@@ -259,6 +262,5 @@ app.post('/api/phrases/:phraseId/comments', function (req, res) {
 });
 
 //connecting it to the server or port 3000
-app.listen(process.env.PORT || require('./config').PORT, function(){
- console.log('server started on locahost:3000');
-});
+app.listen(process.env.PORT || 3000);
+// });
