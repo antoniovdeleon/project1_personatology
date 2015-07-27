@@ -1,6 +1,12 @@
+h1 { 
+  font-family: 'PT Sans Narrow', sans-serif;
+  font-weight: 400; 
+  font-style: bold;
+}
+
 body {
 	background-color: #66CCCC ;
-
+  font-family: 'Open Sans Condensed', sans-serif;
 }
 
 .jumbotron {
